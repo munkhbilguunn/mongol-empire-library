@@ -15,6 +15,7 @@ type Author = {
   death_year: number | null;
   biography: string | null;
   selected_works: string | null;
+  photo_path: string | null;
 };
 
 type Book = {
@@ -52,7 +53,7 @@ export default function AuthorDetailPage() {
       const { data: authorData, error: authorError } = await supabase
         .from("authors")
         .select(
-          "id, name, name_mn, name_en, slug, birth_year, death_year, biography, selected_works"
+          "id, name, name_mn, name_en, slug, birth_year, death_year, biography, selected_works, photo_path"
         )
         .eq("slug", slug)
         .single();
@@ -116,6 +117,14 @@ export default function AuthorDetailPage() {
       .getPublicUrl(path).data.publicUrl;
   }
 
+  function getAuthorPhotoUrl(path: string | null) {
+    if (!path) return "";
+
+    return supabase.storage
+      .from("author-photos")
+      .getPublicUrl(path).data.publicUrl;
+  }
+
   if (loading) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-[#f7f3ea] text-[#29251f]">
@@ -146,35 +155,51 @@ export default function AuthorDetailPage() {
   }
 
   const name = getAuthorName(author);
+  const photoUrl = getAuthorPhotoUrl(author.photo_path);
+  const initial = name.trim().charAt(0).toUpperCase() || "?";
 
   return (
     <main className="min-h-screen bg-[#f7f3ea] text-[#29251f]">
       <PublicHeader active="authors" />
 
       <section className="border-b border-[#d9d0c0] bg-[#fffdf8] px-6 py-14 lg:px-8">
-        <div className="mx-auto max-w-6xl">
-          <div className="text-xs font-medium uppercase tracking-[0.24em] text-[#9a6b25]">
-            Author
-          </div>
-
-          <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
-            {name}
-          </h1>
-
-          {(author.birth_year || author.death_year) && (
-            <p className="mt-4 text-sm text-[#766d61]">
-              {author.birth_year || "?"}
-              {" — "}
-              {author.death_year || ""}
-            </p>
+        <div className="mx-auto flex max-w-6xl flex-col gap-8 sm:flex-row sm:items-center">
+          {photoUrl ? (
+            <img
+              src={photoUrl}
+              alt={`${name} зураг`}
+              className="h-44 w-44 shrink-0 rounded-3xl object-cover object-top shadow-sm sm:h-52 sm:w-52"
+            />
+          ) : (
+            <div className="flex h-44 w-44 shrink-0 items-center justify-center rounded-3xl border border-[#d9d0c0] bg-[#eee8dc] text-6xl font-semibold text-[#9a6b25] sm:h-52 sm:w-52">
+              {initial}
+            </div>
           )}
 
-          {author.name_en &&
-            author.name_en !== name && (
-              <p className="mt-2 text-sm text-[#8c8376]">
-                {author.name_en}
+          <div>
+            <div className="text-xs font-medium uppercase tracking-[0.24em] text-[#9a6b25]">
+              Author
+            </div>
+
+            <h1 className="mt-4 text-4xl font-semibold tracking-tight sm:text-5xl">
+              {name}
+            </h1>
+
+            {(author.birth_year || author.death_year) && (
+              <p className="mt-4 text-sm text-[#766d61]">
+                {author.birth_year || "?"}
+                {" — "}
+                {author.death_year || ""}
               </p>
             )}
+
+            {author.name_en &&
+              author.name_en !== name && (
+                <p className="mt-2 text-sm text-[#8c8376]">
+                  {author.name_en}
+                </p>
+              )}
+          </div>
         </div>
       </section>
 

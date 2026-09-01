@@ -103,7 +103,7 @@ export default async function Home() {
         <div className="relative mx-auto max-w-7xl px-6 py-20 text-center lg:px-8 lg:py-28">
           <div className="mx-auto max-w-4xl">
             <div className="text-xs font-medium uppercase tracking-[0.3em] text-[#9a6b25]">
-              1206 — 1368
+              1206 — 1388
             </div>
 
             <h1 className="mt-5 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl lg:text-6xl">

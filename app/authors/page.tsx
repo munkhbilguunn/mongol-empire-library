@@ -10,6 +10,18 @@ function getAuthorName(author: any) {
   );
 }
 
+function getAuthorPhotoUrl(photoPath: string | null) {
+  if (!photoPath) return "";
+
+  return supabase.storage
+    .from("author-photos")
+    .getPublicUrl(photoPath).data.publicUrl;
+}
+
+function getInitial(name: string) {
+  return name.trim().charAt(0).toUpperCase() || "?";
+}
+
 export default async function AuthorsPage() {
   const { data: authors, error } = await supabase
     .from("authors")
@@ -22,6 +34,7 @@ export default async function AuthorsPage() {
       birth_year,
       death_year,
       biography,
+      photo_path,
       book_authors (
         book_id
       )
@@ -65,39 +78,61 @@ export default async function AuthorsPage() {
                 {authors.map((author: any) => {
                   const name = getAuthorName(author);
                   const bookCount = author.book_authors?.length || 0;
+                  const photoUrl = getAuthorPhotoUrl(author.photo_path);
 
                   return (
                     <article
                       key={author.id}
-                      className="rounded-2xl border border-[#d9d0c0] bg-[#fffdf8] p-6 transition hover:-translate-y-0.5 hover:shadow-lg"
+                      className="overflow-hidden rounded-2xl border border-[#d9d0c0] bg-[#fffdf8] transition hover:-translate-y-0.5 hover:shadow-lg"
                     >
-                      {author.slug ? (
-                        <a href={`/authors/${author.slug}`} className="group block">
-                          <h2 className="text-xl font-semibold tracking-tight transition group-hover:text-[#9a6b25]">
-                            {name}
-                          </h2>
-                        </a>
-                      ) : (
-                        <h2 className="text-xl font-semibold tracking-tight">
-                          {name}
-                        </h2>
-                      )}
+                      <div className="flex gap-5 p-6">
+                        {photoUrl ? (
+                          <a
+                            href={author.slug ? `/authors/${author.slug}` : "#"}
+                            className="shrink-0"
+                          >
+                            <img
+                              src={photoUrl}
+                              alt={`${name} зураг`}
+                              className="h-24 w-24 rounded-2xl object-cover object-top"
+                            />
+                          </a>
+                        ) : (
+                          <div className="flex h-24 w-24 shrink-0 items-center justify-center rounded-2xl border border-[#d9d0c0] bg-[#eee8dc] text-3xl font-semibold text-[#9a6b25]">
+                            {getInitial(name)}
+                          </div>
+                        )}
 
-                      {(author.birth_year || author.death_year) && (
-                        <p className="mt-2 text-xs text-[#8c8376]">
-                          {author.birth_year || "?"}
-                          {" — "}
-                          {author.death_year || ""}
-                        </p>
-                      )}
+                        <div className="min-w-0 flex-1">
+                          {author.slug ? (
+                            <a href={`/authors/${author.slug}`} className="group block">
+                              <h2 className="text-xl font-semibold tracking-tight transition group-hover:text-[#9a6b25]">
+                                {name}
+                              </h2>
+                            </a>
+                          ) : (
+                            <h2 className="text-xl font-semibold tracking-tight">
+                              {name}
+                            </h2>
+                          )}
 
-                      {author.biography && (
-                        <p className="mt-4 line-clamp-3 text-sm leading-6 text-[#766d61]">
-                          {author.biography}
-                        </p>
-                      )}
+                          {(author.birth_year || author.death_year) && (
+                            <p className="mt-2 text-xs text-[#8c8376]">
+                              {author.birth_year || "?"}
+                              {" — "}
+                              {author.death_year || ""}
+                            </p>
+                          )}
 
-                      <div className="mt-5 flex items-center justify-between border-t border-[#e4ddd1] pt-4 text-xs">
+                          {author.biography && (
+                            <p className="mt-3 line-clamp-3 text-sm leading-6 text-[#766d61]">
+                              {author.biography}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="mx-6 flex items-center justify-between border-t border-[#e4ddd1] py-4 text-xs">
                         <span className="text-[#766d61]">
                           {bookCount} бүтээл
                         </span>
