@@ -69,7 +69,8 @@ function getAuthorName(author: Author) {
 
 export default function BookDetailPage() {
   const params = useParams();
-  const slug = params.slug as string;
+const rawSlug = params.slug as string;
+const slug = decodeURIComponent(rawSlug);
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");

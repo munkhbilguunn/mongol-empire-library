@@ -77,7 +77,8 @@ function slugifyTitle(value: string) {
 export default function EditBookPage() {
   const router = useRouter();
   const params = useParams();
-  const routeSlug = params.slug as string;
+const rawRouteSlug = params.slug as string;
+const routeSlug = decodeURIComponent(rawRouteSlug);
   const [bookId, setBookId] = useState("");
 
   const [loading, setLoading] = useState(true);
