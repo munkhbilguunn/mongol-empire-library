@@ -414,7 +414,7 @@ export default function BookDetailPage() {
                 </h2>
 
                 {book.description ? (
-                  <p className="mt-4 whitespace-pre-line text-base leading-8 text-[#4f493f]">
+                  <p className="mt-4 whitespace-pre-line text-justify text-base leading-8 text-[#4f493f]">
                     {book.description}
                   </p>
                 ) : (
