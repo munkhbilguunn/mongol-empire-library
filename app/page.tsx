@@ -59,7 +59,7 @@ export default async function Home() {
       )
     `)
     .order("created_at", { ascending: false })
-    .limit(6);
+    .limit(8);
 
   function getCoverUrl(coverPath: string | null) {
     if (!coverPath) return null;
@@ -186,7 +186,7 @@ export default async function Home() {
               Номын мэдээлэл татахад алдаа гарлаа: {booksError.message}
             </div>
           ) : books && books.length > 0 ? (
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {books.map((book: any) => {
                 const coverUrl = getCoverUrl(book.cover_path);
                 const authors = getAuthorNames(book);
@@ -240,11 +240,7 @@ export default async function Home() {
                         </p>
                       )}
 
-                      {book.subtitle && (
-                        <p className="mt-2 line-clamp-2 text-sm leading-6 text-[#766d61]">
-                          {book.subtitle}
-                        </p>
-                      )}
+                      
 
                       <a
                         href={href}

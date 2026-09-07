@@ -334,18 +334,18 @@ export default function BookDetailPage() {
                 {categoryName || "Ном"}
               </div>
 
-              <h1 className="mt-4 text-4xl font-semibold leading-tight tracking-tight sm:text-5xl">
-                {book.title || "Нэргүй ном"}
-              </h1>
+              <h1 className="mt-4 text-3xl font-semibold leading-tight tracking-tight sm:text-4xl">
+  {book.title || "Нэргүй ном"}
+</h1>
 
-              {book.subtitle && (
-                <p className="mt-4 text-xl leading-8 text-[#625b50]">
-                  {book.subtitle}
-                </p>
-              )}
+{book.subtitle && (
+  <p className="mt-4 text-2xl font-medium leading-8 text-[#625b50] sm:text-3xl sm:leading-10">
+    {book.subtitle}
+  </p>
+)}
 
-              {authors.length > 0 && (
-                <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-base text-[#9a6b25]">
+{authors.length > 0 && (
+  <div className="mt-6 flex flex-wrap gap-x-2 gap-y-1 text-lg font-medium text-[#9a6b25] sm:text-xl">
                   {authors.map((author, index) => (
                     <span key={author.id}>
                       {author.slug ? (
