@@ -1,5 +1,7 @@
 import { supabase } from "@/lib/supabase";
 import PublicHeader from "@/components/PublicHeader";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 const categories = [
   {
