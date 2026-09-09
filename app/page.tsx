@@ -59,7 +59,7 @@ export default async function Home() {
       )
     `)
     .order("created_at", { ascending: false })
-    .limit(8);
+    .limit(10);
 
   function getCoverUrl(coverPath: string | null) {
     if (!coverPath) return null;
@@ -160,7 +160,7 @@ export default async function Home() {
       </section>
 
       {/* LATEST BOOKS */}
-      <section className="border-t border-[#d9d0c0] bg-[#f7f3ea] px-6 py-20 lg:px-8 lg:py-24">
+      <section className="border-t border-[#d9d0c0] bg-[#f7f3ea] px-6 pb-20 pt-14 lg:px-8 lg:pb-24 lg:pt-16">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
             <div>
@@ -186,7 +186,7 @@ export default async function Home() {
               Номын мэдээлэл татахад алдаа гарлаа: {booksError.message}
             </div>
           ) : books && books.length > 0 ? (
-            <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-5">
               {books.map((book: any) => {
                 const coverUrl = getCoverUrl(book.cover_path);
                 const authors = getAuthorNames(book);
@@ -198,15 +198,15 @@ export default async function Home() {
                     className="group overflow-hidden rounded-2xl border border-[#d9d0c0] bg-[#fffdf8] transition hover:-translate-y-1 hover:shadow-xl"
                   >
                     <a href={href} className="block">
-                      <div className="flex h-72 items-center justify-center overflow-hidden bg-[#e6ddce] p-7">
+                      <div className="flex h-72 items-center justify-center overflow-hidden bg-[#e6ddce] p-5">
                         {coverUrl ? (
                           <img
                             src={coverUrl}
                             alt={book.title || "Номын хавтас"}
-                            className="h-56 w-40 object-cover shadow-xl transition duration-300 group-hover:scale-[1.02]"
+                            className="h-60 w-44 object-cover shadow-xl transition duration-300 group-hover:scale-[1.02]"
                           />
                         ) : (
-                          <div className="flex h-56 w-40 flex-col justify-between border border-[#9d8666] bg-[#d8c7aa] p-5 text-center shadow-xl">
+                          <div className="flex h-60 w-44 flex-col justify-between border border-[#9d8666] bg-[#d8c7aa] p-5 text-center shadow-xl">
                             <div className="text-[8px] uppercase tracking-[0.2em] text-[#59472f]">
                               Mongol Empire
                             </div>
@@ -229,7 +229,7 @@ export default async function Home() {
                       </div>
 
                       <a href={href}>
-                        <h3 className="mt-3 text-lg font-semibold tracking-tight transition group-hover:text-[#9a6b25]">
+                        <h3 className="mt-3 text-base font-semibold leading-6 tracking-tight transition group-hover:text-[#9a6b25]">
                           {book.title}
                         </h3>
                       </a>
@@ -264,7 +264,7 @@ export default async function Home() {
       </section>
 
       {/* CATEGORIES */}
-      <section id="categories" className="bg-[#fffdf8] px-6 py-20 lg:px-8 lg:py-24">
+      <section id="categories" className="bg-[#fffdf8] px-6 py-16 lg:px-8 lg:py-20">
         <div className="mx-auto max-w-7xl">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <div>
@@ -272,7 +272,7 @@ export default async function Home() {
                 Судлах хүрээ
               </div>
 
-              <h2 className="mt-4 text-3xl font-semibold tracking-tight sm:text-4xl">
+              <h2 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">
                 Монголын эзэнт гүрэн ба бүрэлдэхүүн улсууд
               </h2>
             </div>
@@ -283,24 +283,24 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-[#d9d0c0] bg-[#d9d0c0] sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-9 grid gap-px overflow-hidden rounded-2xl border border-[#d9d0c0] bg-[#d9d0c0] sm:grid-cols-2 lg:grid-cols-3">
             {categories.map((category) => (
               <a
                 key={category.number}
                 href={`/books?category=${encodeURIComponent(category.title)}`}
-                className="group bg-[#fffdf8] p-7 text-left transition hover:bg-[#f7f0e2] lg:p-9"
+                className="group bg-[#fffdf8] p-6 text-left transition hover:bg-[#f7f0e2] lg:p-7"
               >
                 <div className="flex items-start justify-between">
                   <span className="text-xs font-medium tracking-[0.2em] text-[#a58e6e]">
                     {category.number}
                   </span>
 
-                  <span className="text-xl text-[#b8a68d] transition group-hover:translate-x-1 group-hover:text-[#9a6b25]">
+                  <span className="text-lg text-[#b8a68d] transition group-hover:translate-x-1 group-hover:text-[#9a6b25]">
                     →
                   </span>
                 </div>
 
-                <h3 className="mt-10 text-xl font-semibold tracking-tight">
+                <h3 className="mt-_7 text-xl font-semibold tracking-tight">
                   {category.title}
                 </h3>
 
