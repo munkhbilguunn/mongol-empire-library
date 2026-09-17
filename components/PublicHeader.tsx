@@ -11,7 +11,11 @@ const navItems = [
   { key: "authors", label: "Зохиогч, судлаачид", href: "/authors" },
   { key: "sources", label: "Эх сурвалж", href: "/sources" },
   { key: "timeline", label: "Он цагийн хэлхээс", href: "/timeline" },
-  { key: "newsletter", label: "Newsletter", href: "/#newsletter" },
+  {
+    key: "newsletter",
+    label: "Newsletter",
+    href: "https://munkhbilguun.substack.com/",
+  },
   { key: "about", label: "Төслийн тухай", href: "/about" },
 ] as const;
 
@@ -50,6 +54,12 @@ export default function PublicHeader({
                 <a
                   key={item.key}
                   href={item.href}
+                  target={item.key === "newsletter" ? "_blank" : undefined}
+                  rel={
+                    item.key === "newsletter"
+                      ? "noopener noreferrer"
+                      : undefined
+                  }
                   aria-current={isActive ? "page" : undefined}
                   className={
                     isActive
@@ -99,6 +109,12 @@ export default function PublicHeader({
                   <a
                     key={item.key}
                     href={item.href}
+                    target={item.key === "newsletter" ? "_blank" : undefined}
+                    rel={
+                      item.key === "newsletter"
+                        ? "noopener noreferrer"
+                        : undefined
+                    }
                     aria-current={isActive ? "page" : undefined}
                     onClick={() => setMobileOpen(false)}
                     className={

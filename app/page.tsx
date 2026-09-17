@@ -317,19 +317,16 @@ export default async function Home() {
             </p>
           </div>
 
-          <div className="shrink-0">
-            <a
-              href="https://munkhbilguun.substack.com/subscribe"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Newsletter-д үнэгүй бүртгүүлэх (шинэ цонхонд нээгдэнэ)"
-              className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[#b9aa94] bg-[#fffdf8] px-5 py-3 text-sm font-medium text-[#625b50] transition hover:border-[#9a6b25] hover:text-[#9a6b25] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9a6b25]"
-            >
-              Үнэгүй бүртгүүлэх →
-            </a>
-            <p className="mt-2 text-xs leading-5 text-[#766d61] md:text-center">
-              Substack дээр имэйлээ бүртгүүлнэ.
-            </p>
+          <div className="w-full shrink-0 md:w-[480px]">
+            <iframe
+              src="https://munkhbilguun.substack.com/embed"
+              width="480"
+              height="320"
+              title="Newsletter-д бүртгүүлэх"
+              className="w-full rounded-xl bg-white"
+              style={{ border: "1px solid #d9d0c0" }}
+              scrolling="no"
+            />
           </div>
         </div>
       </section>
