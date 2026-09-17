@@ -102,7 +102,7 @@ export default async function Home() {
           <div className="absolute left-1/2 top-24 h-[380px] w-[380px] -translate-x-1/2 rounded-full border border-[#7b5a32]" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 py-20 text-center lg:px-8 lg:py-28">
+        <div className="relative mx-auto max-w-7xl px-6 py-12 text-center lg:px-8 lg:py-16">
           <div className="mx-auto max-w-4xl">
             <div className="text-xs font-medium uppercase tracking-[0.3em] text-[#9a6b25]">
               1206 — 1388
@@ -142,20 +142,7 @@ export default async function Home() {
             </button>
           </form>
 
-          <div className="mx-auto mt-5 flex max-w-4xl flex-wrap justify-center gap-x-6 gap-y-2 text-xs text-[#877c6d]">
-            <a href="/books" className="hover:text-[#9a6b25]">
-              Бүх ном
-            </a>
-            <a href="/authors" className="hover:text-[#9a6b25]">
-              Зохиогч, судлаачид
-            </a>
-            <a href="/sources" className="hover:text-[#9a6b25]">
-              Эх сурвалж
-            </a>
-            <a href="/timeline" className="hover:text-[#9a6b25]">
-              Он цагийн хэлхээс
-            </a>
-          </div>
+
         </div>
       </section>
 
@@ -195,7 +182,7 @@ export default async function Home() {
                 return (
                   <article
                     key={book.id}
-                    className="group overflow-hidden rounded-2xl border border-[#d9d0c0] bg-[#fffdf8] transition hover:-translate-y-1 hover:shadow-xl"
+                    className="group flex flex-col overflow-hidden rounded-2xl border border-[#d9d0c0] bg-[#fffdf8] transition hover:-translate-y-1 hover:shadow-xl"
                   >
                     <a href={href} className="block">
                       <div className="flex h-72 items-center justify-center overflow-hidden bg-[#e6ddce] p-5">
@@ -223,7 +210,7 @@ export default async function Home() {
                       </div>
                     </a>
 
-                    <div className="p-6">
+                    <div className="flex flex-1 flex-col p-6">
                       <div className="text-[10px] font-medium uppercase tracking-[0.18em] text-[#9a6b25]">
                         {book.publication_year || "Ном"}
                       </div>
@@ -244,7 +231,7 @@ export default async function Home() {
 
                       <a
                         href={href}
-                        className="mt-5 inline-block text-sm font-medium text-[#29251f] transition hover:text-[#9a6b25]"
+                        className="mt-auto inline-block pt-5 text-sm font-medium text-[#29251f] transition hover:text-[#9a6b25]"
                       >
                         Дэлгэрэнгүй →
                       </a>
@@ -316,28 +303,34 @@ export default async function Home() {
       {/* NEWSLETTER */}
       <section
         id="newsletter"
+        aria-labelledby="newsletter-title"
         className="border-t border-[#d9d0c0] bg-[#eee8dc] px-6 py-14 lg:px-8"
       >
         <div className="mx-auto flex max-w-5xl flex-col justify-between gap-6 md:flex-row md:items-center">
           <div>
-            <div className="text-xs font-medium uppercase tracking-[0.22em] text-[#9a6b25]">
+            <h2 id="newsletter-title" className="text-2xl font-semibold">
               Newsletter
-            </div>
-            <h2 className="mt-2 text-2xl font-semibold">
-              Шинэ материалын мэдээллийг хүлээн авах
             </h2>
             <p className="mt-2 max-w-xl text-sm leading-7 text-[#766d61]">
-              Шинээр нэмэгдсэн ном, эх сурвалж, судалгааны мэдээллийг
-              имэйлээр хүргэх хэсгийг дараагийн шатанд идэвхжүүлнэ.
+              Номын дэлгэрэнгүй танилцуулга, эх сурвалжийн тайлбар,
+              сэдэвчилсэн нийтлэлийг долоо хоног бүр имэйлээр хүлээн аваарай.
             </p>
           </div>
 
-          <a
-            href="/books"
-            className="inline-flex shrink-0 items-center justify-center rounded-xl border border-[#b9aa94] bg-[#fffdf8] px-5 py-3 text-sm font-medium text-[#625b50] transition hover:border-[#9a6b25] hover:text-[#9a6b25]"
-          >
-            Одоогоор шинэ номуудыг үзэх →
-          </a>
+          <div className="shrink-0">
+            <a
+              href="https://munkhbilguun.substack.com/subscribe"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Newsletter-д үнэгүй бүртгүүлэх (шинэ цонхонд нээгдэнэ)"
+              className="inline-flex min-h-12 items-center justify-center rounded-xl border border-[#b9aa94] bg-[#fffdf8] px-5 py-3 text-sm font-medium text-[#625b50] transition hover:border-[#9a6b25] hover:text-[#9a6b25] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#9a6b25]"
+            >
+              Үнэгүй бүртгүүлэх →
+            </a>
+            <p className="mt-2 text-xs leading-5 text-[#766d61] md:text-center">
+              Substack дээр имэйлээ бүртгүүлнэ.
+            </p>
+          </div>
         </div>
       </section>
 
