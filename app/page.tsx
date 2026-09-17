@@ -103,16 +103,18 @@ export default async function Home() {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 py-12 text-center lg:px-8 lg:py-16">
-          <div className="mx-auto max-w-4xl">
-            <div className="text-xs font-medium uppercase tracking-[0.3em] text-[#9a6b25]">
+          <div className="mx-auto max-w-6xl">
+            <div className="flex items-center justify-center gap-4 text-xs font-medium uppercase tracking-[0.3em] text-[#9a6b25]">
+              <span className="h-px w-10 bg-[#c8ad7d]" />
               1206 — 1388
+              <span className="h-px w-10 bg-[#c8ad7d]" />
             </div>
 
-            <h1 className="mt-5 text-4xl font-semibold tracking-[-0.04em] sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 text-4xl font-semibold leading-[1.08] tracking-[-0.045em] sm:text-5xl xl:whitespace-nowrap xl:text-6xl">
               Монголын эзэнт гүрний түүхийн сан
             </h1>
 
-            <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-[#6b6256] sm:text-base">
+            <p className="mx-auto mt-6 max-w-2xl text-sm leading-7 text-[#6b6256] sm:text-base">
               Монголын эзэнт гүрний түүхтэй холбоотой ном, судлаач,
               эх сурвалж болон түүхэн мэдээллийг нэг дороос судлаарай.
             </p>
@@ -304,29 +306,42 @@ export default async function Home() {
       <section
         id="newsletter"
         aria-labelledby="newsletter-title"
-        className="border-t border-[#d9d0c0] bg-[#eee8dc] px-6 py-14 lg:px-8"
+        className="border-t border-[#d9d0c0] bg-[#eee8dc] px-6 py-8 lg:px-8 lg:py-10"
       >
-        <div className="mx-auto flex max-w-5xl flex-col justify-between gap-6 md:flex-row md:items-center">
-          <div>
-            <h2 id="newsletter-title" className="text-2xl font-semibold">
-              Newsletter
-            </h2>
-            <p className="mt-2 max-w-xl text-sm leading-7 text-[#766d61]">
-              Номын дэлгэрэнгүй танилцуулга, эх сурвалжийн тайлбар,
-              сэдэвчилсэн нийтлэлийг долоо хоног бүр имэйлээр хүлээн аваарай.
-            </p>
-          </div>
+        <div className="mx-auto max-w-7xl">
+          <div className="overflow-hidden rounded-[28px] border border-[#d9d0c0] bg-[#fffdf8] shadow-[0_16px_45px_rgba(70,50,20,0.07)]">
+            <div className="grid items-center lg:grid-cols-[minmax(0,1fr)_minmax(480px,0.9fr)]">
+              <div className="px-7 py-8 lg:px-10 lg:py-9">
+                <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-[#9a6b25]">
+                  Newsletter
+                </p>
 
-          <div className="w-full shrink-0 md:w-[480px]">
-            <iframe
-              src="https://munkhbilguun.substack.com/embed"
-              width="480"
-              height="320"
-              title="Newsletter-д бүртгүүлэх"
-              className="w-full rounded-xl bg-white"
-              style={{ border: "1px solid #d9d0c0" }}
-              scrolling="no"
-            />
+                <h2
+                  id="newsletter-title"
+                  className="mt-3 max-w-2xl pr-4 text-lg font-semibold leading-snug tracking-tight text-[#29251f] sm:text-xl xl:whitespace-nowrap xl:text-[26px]"
+                >
+                  Шинэ нийтлэлийг мэйлээр хүлээн аваарай
+                </h2>
+
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-[#766d61]">
+                  Номын танилцуулга, эх сурвалжийн тайлбар болон сэдэвчилсэн
+                  нийтлэлийг долоо хоног бүр хүргэнэ.
+                </p>
+              </div>
+
+              <div className="border-t border-[#e4dccf] p-4 lg:border-l lg:border-t-0 lg:p-5">
+                <div className="h-[82px] overflow-hidden rounded-2xl border border-[#eee] bg-white">
+                  <iframe
+                    src="https://munkhbilguun.substack.com/embed"
+                    width="480"
+                    height="150"
+                    title="Newsletter-д бүртгүүлэх"
+                    className="block w-full border-0 bg-white"
+                    scrolling="no"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
