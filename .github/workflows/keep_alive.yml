@@ -1,7 +1,7 @@
 name: Keep Supabase Alive
 
 # Supabase Free төлөвлөгийн ~7 хоногийн идэвхгүй байдлын тоолуурыг reset хийх
-# зориулалттай heartbeat workflow. 3 хоног тутамд library_items хүснэгтээс
+# зориулалттай heartbeat workflow. 3 хоног тутамд books хүснэгтээс
 # 1 мөр уншиж, бодит database activity үүсгэнэ.
 #
 # ТОХИРУУЛАХ АЛХАМУУД:
@@ -30,7 +30,7 @@ jobs:
       - name: Ping Supabase (reset inactivity timer)
         run: |
           CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/library_items?select=id&limit=1" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/books?select=id&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
           echo "HTTP status: $CODE"
