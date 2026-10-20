@@ -1,0 +1,40 @@
+name: Keep Supabase Alive
+
+# Supabase Free төлөвлөгийн ~7 хоногийн идэвхгүй байдлын тоолуурыг reset хийх
+# зориулалттай heartbeat workflow. 3 хоног тутамд library_items хүснэгтээс
+# 1 мөр уншиж, бодит database activity үүсгэнэ.
+#
+# ТОХИРУУЛАХ АЛХАМУУД:
+# 1. GitHub repo -> Settings -> Secrets and variables -> Actions дээр:
+#    - SUPABASE_URL      = https://xxxxx.supabase.co
+#    - SUPABASE_ANON_KEY = anon public түлхүүр (service_role биш!)
+# 2. Энэ файлыг repo-ийн .github/workflows/keep_alive.yml замд хуулаад
+#    main branch руу push хийнэ.
+# 3. Actions таб -> Keep Supabase Alive -> Run workflow дарж гараар
+#    шалгана. Ногоон болсон бол cron өөрөө ажиллана.
+#
+# АНХААРАХ: Хэрэв Supabase project одоо pause болсон байгаа бол эхлээд
+# Supabase Dashboard -> Restore project дарж сэргээ. Pause болсон
+# project руу ping явуулах нь сэргээхгүй.
+
+on:
+  schedule:
+    # 3 хоног тутамд, 00:00 UTC — 7 хоногийн цонхны дотор найдвартай
+    - cron: '0 0 */3 * *'
+  workflow_dispatch: # Actions табаас гараар ажиллуулах товч
+
+jobs:
+  ping_db:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase (reset inactivity timer)
+        run: |
+          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/library_items?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          echo "HTTP status: $CODE"
+          if [ "$CODE" != "200" ]; then
+            echo "Ping failed — check secrets, RLS policy, and that the project is not paused."
+            exit 1
+          fi
