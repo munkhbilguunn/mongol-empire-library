@@ -11,7 +11,8 @@ name: Keep Supabase Alive
 # 2. Энэ файлыг repo-ийн .github/workflows/keep_alive.yml замд хуулаад
 #    main branch руу push хийнэ.
 # 3. Actions таб -> Keep Supabase Alive -> Run workflow дарж гараар
-#    шалгана. Ногоон болсон бол cron өөрөө ажиллана.
+#    шалгана. АНХААР: хуучин унасан run дээр "Re-run jobs" дарвал
+#    GitHub ХУУЧИН файлаар дахин ажиллана — заавал шинээр Run workflow хийнэ.
 #
 # АНХААРАХ: Хэрэв Supabase project одоо pause болсон байгаа бол эхлээд
 # Supabase Dashboard -> Restore project дарж сэргээ. Pause болсон
@@ -29,12 +30,13 @@ jobs:
     steps:
       - name: Ping Supabase (reset inactivity timer)
         run: |
-          CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+          echo "Pinging: ${{ secrets.SUPABASE_URL }}/rest/v1/books?select=id&limit=1"
+          RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
             "${{ secrets.SUPABASE_URL }}/rest/v1/books?select=id&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
-          echo "HTTP status: $CODE"
-          if [ "$CODE" != "200" ]; then
-            echo "Ping failed — check secrets, RLS policy, and that the project is not paused."
+          echo "$RESPONSE"
+          if ! echo "$RESPONSE" | grep -q "HTTP_STATUS:200"; then
+            echo "Ping failed — see the response body above for the exact reason."
             exit 1
           fi
