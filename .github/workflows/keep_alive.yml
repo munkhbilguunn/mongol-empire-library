@@ -7,6 +7,7 @@ name: Keep Supabase Alive
 # ТОХИРУУЛАХ АЛХАМУУД:
 # 1. GitHub repo -> Settings -> Secrets and variables -> Actions дээр:
 #    - SUPABASE_URL      = https://xxxxx.supabase.co
+#                          (төгсгөлд нь "/" г.м. юу ч байхгүй!)
 #    - SUPABASE_ANON_KEY = anon public түлхүүр (service_role биш!)
 # 2. Энэ файлыг repo-ийн .github/workflows/keep_alive.yml замд хуулаад
 #    main branch руу push хийнэ.
@@ -30,9 +31,12 @@ jobs:
     steps:
       - name: Ping Supabase (reset inactivity timer)
         run: |
-          echo "Pinging: ${{ secrets.SUPABASE_URL }}/rest/v1/books?select=id&limit=1"
+          # Secret-ийн төгсгөлийн зай, "/" болон андуурагдсан "/rest/v1"-ийг
+          # автоматаар цэвэрлэнэ (SUPABASE_URL нь зөвхөн https://xxx.supabase.co байх ёстой)
+          BASE=$(printf '%s' "${{ secrets.SUPABASE_URL }}" | tr -d '[:space:]' | sed -e 's:/*$::' -e 's:/rest/v1$::' -e 's:/*$::')
+          echo "Pinging: $BASE/rest/v1/books?select=id&limit=1"
           RESPONSE=$(curl -s -w "\nHTTP_STATUS:%{http_code}" \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/books?select=id&limit=1" \
+            "$BASE/rest/v1/books?select=id&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
             -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
           echo "$RESPONSE"
